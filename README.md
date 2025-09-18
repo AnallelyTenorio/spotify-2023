@@ -12,7 +12,7 @@ Análisis exploratorio y validación de preguntas de negocio con **BigQuery** y 
 
 Explorar un dataset de canciones (Spotify 2023), identificar patrones y **responder preguntas de negocio**, entre ellas:
 
-- ¿Canciones con mayor BPM tienen más streams?
+- ¿Canciones con mayor BPM (beats per minute) tienen más streams?
 - ¿Aparecer en más playlists implica más streams?
 
 ---
@@ -62,21 +62,80 @@ README.md
 
 ---
 
-## 🧪 SQL clave (snippets)
+## 🧪 SQL clave
 
 > ⚠️ Ajusta `project.dataset` a tu entorno.
 
-### 1) Asegurar tipo numérico en `streams`
+
+---
+
+## 🔎 Consultas SQL ejecutadas
+Las queries se encuentran en la carpeta [`sql/`](./sql).  
+Ejemplos:
+
 ```sql
-CREATE OR REPLACE TABLE `project.dataset.step2_track_in_spotify` AS
+-- 5.1.2 Identificar valores nulos
+SELECT COUNT(*) 
+FROM `spotify_2023.track_in_spotify`
+WHERE streams IS NULL;
+```
+```sql
+-- 5.2.7 Calcular correlación entre variables
 SELECT
-  track_id,
-  SAFE_CAST(streams AS INT64) AS streams,
-  in_spotify_playlists,
-  in_apple_playlists,
-  in_deezer_playlists,
-  released_year
-FROM `project.dataset.track_in_spotify`;
+  CORR(streams, total_playlists) AS corr_streams_playlists
+FROM `spotify_2023.resumen_final_spotify`;
+```
+
+
+---
+
+## 📊 Resultados (resumen)
+
+Total canciones: 949
+
+Total artistas: 645
+
+### 🔹 Preguntas de negocio
+
+#### ¿Canciones con mayor BPM tienen más streams?
+
+Correlación: r = -0.0002 → relación nula.
+
+Conclusión: el BPM no predice el éxito, aunque tempos moderados (101–120 BPM) muestran mejor desempeño típico.
+
+#### ¿Aparecer en más playlists implica más streams?
+
+Correlación: r = 0.78 → relación positiva fuerte.
+
+Conclusión: la visibilidad en playlists es un factor clave asociado al éxito de una canción.
+
+Distribuciones sesgadas a la derecha: pocas canciones muy exitosas elevan los promedios.
+
+Crecimiento en streams y lanzamientos a partir de 2000, pico en 2022.
+
+Ver detalles y narrativa en docs/Ficha Técnica 02 - Spotify 2023.pdf
+
+## 📑 Documentación
+
+Ficha Técnica del Proyecto: 
+https://docs.google.com/document/d/1f4G5z0jAPMUIbowk3cKmcQJf33i5id-uNS5O2FvHvBw/edit?usp=sharing
+
+Dashboard en Looker Studio: 
+https://lookerstudio.google.com/reporting/2404a7fa-511a-4456-abbc-2d78719c743b
+
+<img width="1371" height="712" alt="image" src="https://github.com/user-attachments/assets/7e828fd6-e401-453d-8894-8e0c388c6507" />
+<img width="1372" height="747" alt="image" src="https://github.com/user-attachments/assets/ab7a371a-5fe9-4da0-8269-bffb5858de6d" />
+<img width="1370" height="482" alt="image" src="https://github.com/user-attachments/assets/788734de-f9d2-4a75-9f5c-791ef87b8eb3" />
+<img width="1372" height="410" alt="image" src="https://github.com/user-attachments/assets/c7c315ee-d08e-4580-bba8-32489b7c6435" />
+
+
+
+## 📄 Créditos
+
+Equipo: Hemmy Luz Torres Ariza · Anallely Tenorio Sanchez
+
+Dataset: Spotify 2023 (material de curso)
+
 
 
 
