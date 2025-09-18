@@ -51,7 +51,7 @@ README.md
 
 ## ▶️ Cómo reproducir (rápido)
 
-1. Crea (o usa) un proyecto en **BigQuery** y sube las tablas originales:
+1. Crea (o usa) un proyecto en **BigQuery** y sube las tablas originales `/data/`:
    - `track_in_spotify`
    - `track_in_competition`
    - `track_technical_info`
