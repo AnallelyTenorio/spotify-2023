@@ -20,6 +20,8 @@ Explorar un dataset de canciones (Spotify 2023), identificar patrones y **respon
 ## 🧱 Estructura del repo
 
 ```sql
+/data
+spotify_2023.zip
 /cleaning
 5.1.2_Identificar_valores_nulos.sql
 5.1.3_Identificar_valores_duplicados.sql
@@ -33,9 +35,6 @@ Explorar un dataset de canciones (Spotify 2023), identificar patrones y **respon
 5.2.7_Calcular_correlación_entre_variables.sql
 /docs
 Ficha Técnica 02 - Spotify 2023.pdf
-/images
-dashboard_kpis.png
-corr_playlists_streams.png
 README.md
 ```
 
